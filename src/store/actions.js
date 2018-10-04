@@ -1,9 +1,11 @@
 
-export const incrementCounter = store => () =>
-    store.setState(state => ({ counter: state.counter + 1 }))
+export const createActions = store => ({
+  incrementCounter: () =>
+    store.setState(state => ({ counter: state.counter + 1 })),
 
-export const decrementCounter = store => () =>
-    store.setState(state => ({ counter: state.counter - 1 }))
+  decrementCounter: () =>
+    store.setState(state => ({ counter: state.counter - 1 })),
 
-export const updateMessage = store => message =>
-    store.setState(state => ({ message }))
+  updateMessage: message =>
+    store.setState({ message })
+})
