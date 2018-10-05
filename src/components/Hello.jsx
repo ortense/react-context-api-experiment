@@ -1,6 +1,6 @@
 import React from 'react'
 import Wrapper from './Wrapper'
-import { connect } from '../store'
+import Store from '../store'
 
 export const Hello = ({ message, updateMessage }) =>
   <Wrapper name='components/Hello.jsx'>
@@ -10,4 +10,4 @@ export const Hello = ({ message, updateMessage }) =>
     <p>Hello {message}</p>
   </Wrapper>
 
-export default connect(Hello)
+export default Store.connect(Hello)

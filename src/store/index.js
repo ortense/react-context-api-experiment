@@ -1,1 +1,1 @@
-export { Store as default, connect } from './Store'
+export { Store as default } from './Store'

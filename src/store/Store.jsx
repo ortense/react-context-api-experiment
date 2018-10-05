@@ -16,6 +16,13 @@ export class Store extends React.Component {
     }
   }
 
+  static connect(component) {
+    const WithStore = () =>
+      <Store.Consumer>{component}</Store.Consumer>
+    
+      return WithStore
+  } 
+
   render() {
     return (
       <Context.Provider value={this.state}>
@@ -24,6 +31,3 @@ export class Store extends React.Component {
     )
   }
 }
-
-export const connect = component => () =>
-  <Store.Consumer>{component}</Store.Consumer>
