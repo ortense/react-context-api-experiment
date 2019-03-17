@@ -1,5 +1,5 @@
 import React from 'react'
-import { createActions } from './actions.js'
+import * as reducers from './reducers'
 import initialState from './state'
 
 const Context = React.createContext()
@@ -7,13 +7,9 @@ const Context = React.createContext()
 export class Store extends React.Component {
   static Consumer = Context.Consumer
 
-  constructor(...args) {
-    super(...args)
-
-    this.state = {
-      ...initialState,
-      ...createActions(this),
-    }
+  constructor(props) {
+    super(props)
+    this.state = initialState
   }
 
   static connect(component) {
@@ -21,11 +17,17 @@ export class Store extends React.Component {
       <Store.Consumer>{component}</Store.Consumer>
     
       return WithStore
-  } 
+  }
+
+  dispatch = (action) => this.setState(state => 
+    reducers[action.type]
+      ? reducers[action.type](state, action.payload)
+      : state
+  )
 
   render() {
     return (
-      <Context.Provider value={this.state}>
+      <Context.Provider value={{ state: this.state, dispatch: this.dispatch }}>
         {this.props.children}
       </Context.Provider>
     )
