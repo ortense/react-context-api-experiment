@@ -19,11 +19,9 @@ export class Store extends React.Component {
       return WithStore
   }
 
-  dispatch = (action) => this.setState(state => 
-    reducers[action.type]
-      ? reducers[action.type](state, action.payload)
-      : state
-  )
+  dispatch = action => 
+    reducers[action.type] && this.setState(state =>
+      reducers[action.type](state, action.payload))
 
   render() {
     return (
