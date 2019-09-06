@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import * as reducers from './reducers'
 import initialState from './state'
 
@@ -9,7 +10,7 @@ export class Store extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = initialState
+    this.state = props.initialState
   }
 
   static connect(component) {
@@ -20,8 +21,8 @@ export class Store extends React.Component {
   }
 
   dispatch = action => 
-    reducers[action.type] && this.setState(state =>
-      reducers[action.type](state, action.payload))
+    this.props.reducers[action.type] && this.setState(state =>
+      this.props.reducers[action.type](state, action.payload))
 
   render() {
     return (
@@ -31,3 +32,10 @@ export class Store extends React.Component {
     )
   }
 }
+
+Store.propTypes = {
+  initialState: PropTypes.object,
+  reducers: PropTypes.objectOf(PropTypes.func)
+}
+
+Store.defaultProps = { initialState, reducers }
